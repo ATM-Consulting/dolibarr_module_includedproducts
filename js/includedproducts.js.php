@@ -161,6 +161,7 @@ $( document ).ready(function() {
 
 		var element = $(this).attr('data-target-element');
 		var fk_element = $(this).attr('data-target-id');
+		var fk_origin_line = $(this).attr('data-target-idline');
 
 		var productSearchDialogBox = "included-products-dialog-box";
 		// crée le calque qui sera convertie en popup
@@ -193,8 +194,9 @@ $( document ).ready(function() {
 
 				IncludedProducts.element = element;
 				IncludedProducts.fk_element = fk_element;
+				IncludedProducts.fk_origin_line = fk_origin_line;
 
-				IncludedProducts.discountLoadSearchProductDialogForm("&element="+element+"&fk_element="+fk_element);
+				IncludedProducts.discountLoadSearchProductDialogForm("&element="+element+"&fk_element="+fk_element+"&fk_origin_line="+fk_origin_line);
 				$('#'+productSearchDialogBox).parent().css('z-index', 1002);
 				$('.ui-widget-overlay').css('z-index', 1001);
 			}
@@ -259,6 +261,7 @@ var IncludedProducts = {};
 
 	o.element = '';
 	o.fk_element = 0;
+	o.fk_origin_line = 0;
 
 	/**
 	 * Load product search dialog form
@@ -422,6 +425,7 @@ var IncludedProducts = {};
 	 */
 	o.initCurrentDocumentObjectVarsFromForm = function (){
 		o.fk_element = $("#included-products-form-fk-element").val();
+		o.fk_origin_line = $("#included-products-form-fk-origin-line").val();
 		o.element = $("#included-products-form-element").val();
 	}
 
@@ -470,6 +474,7 @@ var IncludedProducts = {};
 			'subprice': $("#included-products-list-input-subprice-"+fk_product).val(),
 			'reduction': $("#included-products-list-input-reduction-"+fk_product).val(),
 			'fk_element': o.fk_element,
+			'fk_origin_line': o.fk_origin_line,
 			'element': o.element
 		};
 

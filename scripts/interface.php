@@ -62,6 +62,7 @@ if ($action === 'add-product') {
 	$fk_product = GETPOST('fk_product', 'int');
 	$element = GETPOST("element", 'aZ09');
 	$fk_element = GETPOST("fk_element", "int");
+	$fk_origin_line = GETPOST("fk_origin_line", "int");
 
 	$qty = GETPOST("qty", "int");
 	$qty = price2num($qty);
@@ -182,6 +183,9 @@ if ($action === 'add-product') {
 							/**
 							 * @var Commande $object
 							 */
+
+							// Ajout nouvelle ligne
+
 							$resAdd = $object->addline(
 								$desc,
 								$pu_ht,
@@ -210,11 +214,17 @@ if ($action === 'add-product') {
 								$origin_id,
 								$pu_ht_devise
                             );
+
+							// Mise à jour du prix de la ligne d'origine
+
 						}
 						elseif($element=='propal') {
 							/**
 							 * @var Propal $object
 							 */
+
+							// Ajout nouvelle ligne
+
 							$resAdd = $object->addline(
 								$desc,
 								$pu_ht,
@@ -243,11 +253,22 @@ if ($action === 'add-product') {
 								$pu_ht_devise,
 								$fk_remise_except
 							);
+
+							// Mise à jour du prix de la ligne d'origine
+
+							$origin_line = new PropaleLigne($db);
+							$origin_line->fetch($fk_origin_line);
+							$object->updateline($fk_origin_line, $origin_line->subprice + $object->line->total_ht, $origin_line->tva_tx, $origin_line->txlocaltax1, $origin_line->txlocaltax2, $origin_line->desc, 'HT', $origin_line->info_bits, $origin_line->special_code, $origin_line->fk_parent_line, 0, $origin_line->fk_fournprice, $origin_line->pa_ht, $origin_line->label, $origin_line->product_type, $origin_line->date_start, $origin_line->date_end, $origin_line->array_options, $origin_line->fk_unit, $origin_line->multicurrency_subprice);
+//							updateline($rowid, $pu, $qty, $remise_percent, $txtva, $txlocaltax1 = 0.0, $txlocaltax2 = 0.0, $desc = '', $price_base_type = 'HT', $info_bits = 0, $special_code = 0, $fk_parent_line = 0, $skip_update_total = 0, $fk_fournprice = 0, $pa_ht = 0, $label = '', $type = 0, $date_start = '', $date_end = '', $array_options = 0, $fk_unit = null, $pu_ht_devise = 0, $notrigger = 0)
+
 						}
 						elseif($element=='facture') {
 							/**
 							 * @var Propal $object
 							 */
+
+							// Ajout nouvelle ligne
+
 							$ventil = 0;
 							$situation_percent = 100;
 							$fk_prev_id = '';
@@ -282,6 +303,9 @@ if ($action === 'add-product') {
 								$fk_unit,
 								$pu_ht_devise
 							);
+
+							// Mise à jour du prix de la ligne d'origine
+
 						}
 						elseif($element=='invoice_supplier') {
 							/**

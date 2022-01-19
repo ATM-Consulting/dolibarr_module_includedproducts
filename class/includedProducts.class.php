@@ -152,6 +152,7 @@ class IncludedProducts extends CommonObject
 
 		$element = GETPOST("element", 'aZ09');
 		$fk_element = GETPOST("fk_element", "int");
+		$fk_origin_line = GETPOST("fk_origin_line", "int");
 
 		$object = self::objectAutoLoad($element, $db);
 		if($object > 0){
@@ -283,6 +284,7 @@ class IncludedProducts extends CommonObject
 		$output.= '<input type="hidden" name="fk_company" value="'.$fk_company.'">';
 		$output.= '<input type="hidden" id="included-products-form-element" name="element" value="'.$element.'">';
 		$output.= '<input type="hidden" id="included-products-form-fk-element" name="fk_element" value="'.$fk_element.'">';
+		$output.= '<input type="hidden" id="included-products-form-fk-origin-line" name="fk_origin_line" value="'.$fk_origin_line.'">';
 		$output.= '<input type="hidden" id="included-products-form-fk-project" name="fk_project" value="'.$fk_project.'">';
 		$output.= '<input type="hidden" id="included-products-form-default-customer-reduction" name="default_customer_reduction" value="'.floatval($object->thirdparty->remise_percent).'">';
 
