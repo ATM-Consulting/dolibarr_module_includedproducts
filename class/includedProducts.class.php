@@ -271,20 +271,20 @@ class IncludedProducts extends CommonObject
 		}
 		if ($fourn_id > 0)  $sql .= " AND pfp.fk_soc = ".((int) $fourn_id);
 
-		$output.=  '<form id="product-search-dialog-form" class="--blur-on-loading" >';
+		$output.=  '<form id="included-products-dialog-form" class="--blur-on-loading" >';
 
 		$output.=  '<input type="hidden" name="token" value="'.newToken().'">';
 		$output.=  '<input type="hidden" name="formfilteraction" id="formfilteraction" value="list">';
-		$output.= '<input type="hidden" name="action" value="product-search-form">';
+		$output.= '<input type="hidden" name="action" value="included-products-form">';
 		$output.= '<input type="hidden" name="sortfield" value="'.$sortfield.'">';
 		$output.= '<input type="hidden" name="sortorder" value="'.$sortorder.'">';
 		//$output.= '<input type="hidden" name="page" value="'.$page.'">';
 		$output.= '<input type="hidden" name="type" value="'.$type.'">';
 		$output.= '<input type="hidden" name="fk_company" value="'.$fk_company.'">';
-		$output.= '<input type="hidden" id="includedproducts-form-element" name="element" value="'.$element.'">';
-		$output.= '<input type="hidden" id="includedproducts-form-fk-element" name="fk_element" value="'.$fk_element.'">';
-		$output.= '<input type="hidden" id="includedproducts-form-fk-project" name="fk_project" value="'.$fk_project.'">';
-		$output.= '<input type="hidden" id="includedproducts-form-default-customer-reduction" name="default_customer_reduction" value="'.floatval($object->thirdparty->remise_percent).'">';
+		$output.= '<input type="hidden" id="included-products-form-element" name="element" value="'.$element.'">';
+		$output.= '<input type="hidden" id="included-products-form-fk-element" name="fk_element" value="'.$fk_element.'">';
+		$output.= '<input type="hidden" id="included-products-form-fk-project" name="fk_project" value="'.$fk_project.'">';
+		$output.= '<input type="hidden" id="included-products-form-default-customer-reduction" name="default_customer_reduction" value="'.floatval($object->thirdparty->remise_percent).'">';
 
 		$querySearchRes = $db->query('SELECT '.$sqlSelectCount.' '.$sql);
 		$globalCountResult = 0;
@@ -621,7 +621,7 @@ class IncludedProducts extends CommonObject
 
 						$output.= '<td class="included-products-col --action" >';
 //					$output.= '<div class="default-hidden" >';
-						$output.= ' <button type="button" title="'.$langs->trans('ClickToAddProductInDocument').'"  data-product="'.$product->id.'" class="included-products-search-list-action-btn --addProductToLine" ><span class="fa fa-plus add-btn-icon"></span> '.$langs->trans('Add').'</button>';
+						$output.= ' <button type="button" title="'.$langs->trans('ClickToAddProductInDocument').'"  data-product="'.$product->id.'" class="included-products-list-action-btn --addProductToLine" ><span class="fa fa-plus add-btn-icon"></span> '.$langs->trans('Add').'</button>';
 //					$output.= '</div>';
 						$output.= '</td>';
 

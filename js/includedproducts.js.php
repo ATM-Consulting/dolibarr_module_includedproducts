@@ -93,7 +93,7 @@ $( document ).ready(function() {
 	/****************************************************************/
 	/* recherche de produit rapide sur formulaire d'ajout de ligne  */
 	/****************************************************************/
-	$(document).on("submit", "#product-search-dialog-form" , function(event) {
+	$(document).on("submit", "#included-products-dialog-form" , function(event) {
 		event.preventDefault();
 		IncludedProducts.discountLoadSearchProductDialogForm("&"+$( this ).serialize());
 	});
@@ -117,7 +117,7 @@ $( document ).ready(function() {
 		clearTimeout(typingProductSearchTimer);
 		if ($('#search-all-form-input').val()) {
 			typingProductSearchTimer = setTimeout(function(){
-				IncludedProducts.discountLoadSearchProductDialogForm("&"+$( "#product-search-dialog-form" ).serialize());
+				IncludedProducts.discountLoadSearchProductDialogForm("&"+$( "#included-products-dialog-form" ).serialize());
 			}, doneTypingProductSearchInterval);
 		}
 	});
@@ -162,7 +162,7 @@ $( document ).ready(function() {
 		var element = $(this).attr('data-target-element');
 		var fk_element = $(this).attr('data-target-id');
 
-		var productSearchDialogBox = "product-search-dialog-box";
+		var productSearchDialogBox = "included-products-dialog-box";
 		// crée le calque qui sera convertie en popup
 		$('body').append('<div id="'+productSearchDialogBox+'" title="<?php print $langs->transnoentities('SearchProduct'); ?>"></div>');
 
@@ -171,7 +171,7 @@ $( document ).ready(function() {
 			autoOpen: true,
 			modal: true,
 			width: Math.min($( window ).width() - 50, 1700),
-			dialogClass: 'discountrule-product-search-box',
+			dialogClass: 'discountrule-included-products-box',
 			buttons: [
 				{
 					text: "<?php print $langs->transnoentities('CloseDialog'); ?>",
@@ -218,12 +218,12 @@ $( document ).ready(function() {
 			typingQtySearchDiscountTimer = setTimeout(function(){
 				DiscountRule.discountUpdate(
 					fk_product,
-					$("#product-search-dialog-form").find("input[name=fk_company]").val(),
-					$("#IncludedProducts-form-fk-project").val(),
+					$("#included-products-dialog-form").find("input[name=fk_company]").val(),
+					$("#included-products-form-fk-project").val(),
 					"#included-products-list-input-qty-"+fk_product,
 					"#included-products-list-input-subprice-"+fk_product,
 					"#included-products-list-input-reduction-"+fk_product,
-					"#IncludedProducts-form-default-customer-reduction"
+					"#included-products-form-default-customer-reduction"
 				);
 			}, doneTypingQtySearchDiscountInterval);
 		}
@@ -266,7 +266,7 @@ var IncludedProducts = {};
 	 * @param $morefilters
 	 */
 	o.discountLoadSearchProductDialogForm = function (morefilters = ''){
-		var productSearchDialogBox = "product-search-dialog-box";
+		var productSearchDialogBox = "included-products-dialog-box";
 
 		$('#'+productSearchDialogBox).addClass('--ajax-loading');
 
@@ -421,8 +421,8 @@ var IncludedProducts = {};
 	 * Will init document info from loaded ajax form
 	 */
 	o.initCurrentDocumentObjectVarsFromForm = function (){
-		o.fk_element = $("#IncludedProducts-form-fk-element").val();
-		o.element = $("#IncludedProducts-form-element").val();
+		o.fk_element = $("#included-products-form-fk-element").val();
+		o.element = $("#included-products-form-element").val();
 	}
 
 	/**

@@ -156,7 +156,7 @@ if ($action === 'add-product') {
 					$fk_parent_line = 0;
 
 					$label = '';
-					$array_options = 0;
+					$array_options = array('options_includedproducts_isincludedproduct'=>1);
 					$fk_unit = $product->fk_unit;
 					$origin = '';
 					$origin_id = 0;

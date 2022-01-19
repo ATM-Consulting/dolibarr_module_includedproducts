@@ -127,7 +127,7 @@ class ActionsIncludedproducts
 			// Ensure third party is loaded
 			if ($object->socid && empty($object->thirdparty)) $object->fetch_thirdparty();
 
-			if (count($object->lines) > 0)
+			if (count($object->lines) > 0 && empty($object->status))
 			{
 				?>
 				<script type="text/javascript">
@@ -137,13 +137,11 @@ class ActionsIncludedproducts
 						var td;
 						<?php
 
-						$picto = img_picto($langs->trans('Nomenclature'),'object_list');
-
 						foreach($object->lines as &$line)
 						{
 							if ($line->product_type == 9) continue; //Filtre sur les lignes de subtotal
 
-							if($line->fk_product>0 || !empty($conf->global->NOMENCLATURE_ALLOW_FREELINE))
+							if(empty($line->array_options['options_includedproducts_isincludedproduct']))
 							{
 								$lineid = empty($line->id) ? $line->rowid : $line->id;
 								?>
@@ -151,7 +149,7 @@ class ActionsIncludedproducts
 
 								if(td.length === 0) td = $('#row-<?php echo $lineid; ?> td:nth-child('+lineColDescriptionPos+')');
 
-								td.append('<button type="button" id="included-products-dialog-button" class="classfortooltip" data-target-element="<?php echo $line->element; ?>" data-target-id="<?php echo $line->id; ?>" title="<?php echo $langs->trans("OpenSearchProductBox"); ?>" ><i>C</i></button>');
+								td.append('<button type="button" id="included-products-dialog-button" class="classfortooltip" data-target-element="<?php echo $object->element; ?>" data-target-id="<?php echo $object->id; ?>" title="<?php echo $langs->trans("OpenSearchProductBox"); ?>" ><i>C</i></button>');
 
 								<?php
 							}
