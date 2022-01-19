@@ -60,12 +60,11 @@ IncludedProduts_ef_isincludedproduct=Est un composant
 #
 # Search
 #
-AdvanceProductSearch = Recherche avancée
 resultsDisplayForNbResultsFounds = %s enregistrements affichés sur %s enregistrements trouvés
 OneResultDisplayForOneResultFounds = %s enregistrement affiché sur %s enregistrement trouvé
 SearchProduct = Recherche de produits/services
 ClickToAddProductInDocument = Ajouter ce produit/service au document
-OpenSearchProductBox = Recherche avancée
+OpenSearchProductBox = Ajouter des composantes
 ErrorFetchingObject = Erreur : Document non trouvé
 ErrorFetchingProduct = Erreur : Produit non trouvé
 ErrorOnAddLine = Erreur lors de l'ajout de ligne

@@ -185,7 +185,7 @@ $( document ).ready(function() {
 			close: function( event, ui ) {
 				if(IncludedProducts.dialogCountAddedProduct>0){
 					// si une ligne a été ajoutée, recharge la page actuelle
-					document.location.reload();
+					document.location.href = "<?php print $_SERVER['HTTP_REFERER']; ?>";
 				}
 			},
 			open: function( event, ui ) {
