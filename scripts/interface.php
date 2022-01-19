@@ -34,22 +34,22 @@ if (!$res && file_exists($path . "../main.inc.php")) $res = @include($path . "..
 if (!$res && file_exists($path . "../../main.inc.php")) $res = @include($path . "../../main.inc.php");
 if (!$res && file_exists($path . "../../../main.inc.php")) $res = @include($path . "../../../main.inc.php");
 if (!$res) die("Include of master fails");
-require_once __DIR__ . '/../class/advancedProductSearch.class.php';
-require_once __DIR__ . '/../lib/advancedproductsearch.lib.php';
+require_once __DIR__ . '/../class/includedProducts.class.php';
+//require_once __DIR__ . '/../lib/advancedproductsearch.lib.php';
 
 global $langs, $db, $hookmanager, $user, $mysoc;
 /**
  * @var DoliDB $db
  */
-$hookmanager->initHooks('advancedproductsearchinterface');
+$hookmanager->initHooks('includedproductsinterface');
 
 // Load traductions files requiredby by page
-$langs->loadLangs(array("advancedproductsearch@advancedproductsearch", "other", 'main'));
+$langs->loadLangs(array("includedproducts@includedproducts", "other", 'main'));
 
 $action = GETPOST('action');
 
 // Security check
-if (empty($conf->advancedproductsearch->enabled)) accessforbidden('Module not enabled');
+if (empty($conf->includedproducts->enabled)) accessforbidden('Module not enabled');
 
 
 // AJOUT DE LIGNE DANS LES DOCUMENTS
@@ -86,9 +86,9 @@ if ($action === 'add-product') {
 		$jsonResponse->msg = array($langs->transnoentities('NotEnoughRights'));
 	}
 	else{
-		$product = AdvancedProductSearch::getProductCache($fk_product);
+		$product = IncludedProducts::getProductCache($fk_product);
 
-		$object = AdvancedProductSearch::objectAutoLoad($element, $db);
+		$object = IncludedProducts::objectAutoLoad($element, $db);
 
 		if($product > 0) {
 			if($object->fetch($fk_element)) {
@@ -106,7 +106,7 @@ if ($action === 'add-product') {
 					$pa_ht = $product->pmp;
 
 					if ($conf->fournisseur->enabled) {
-						$TFournPriceList = AdvancedProductSearch::getFournPriceList($product->id);
+						$TFournPriceList = IncludedProducts::getFournPriceList($product->id);
 						if (!empty($TFournPriceList) && !empty($fournPrice)) {
 							if (is_numeric($fournPrice)) { $fournPrice = intval($fournPrice); }
 
@@ -420,14 +420,14 @@ if ($action === 'add-product') {
 	print json_encode($jsonResponse); // , JSON_PRETTY_PRINT
 }
 // retourne le formulaire de recherche avancé de produit
-elseif ($action === 'product-search-form') {
-	$AdvancedProductSearch = new AdvancedProductSearch($db);
+elseif ($action === 'included-products-form') {
+	$IncludedProducts = new IncludedProducts($db);
 	$element = GETPOST("element", 'aZ09');
 	$isSupplier = false;
-	if(in_array($element, $AdvancedProductSearch->supplierElements)) {
+	if(in_array($element, $IncludedProducts->supplierElements)) {
 		$isSupplier = true;
 	}
-	print AdvancedProductSearch::advancedProductSearchForm('', $isSupplier);
+	print IncludedProducts::IncludedProductsForm('', $isSupplier);
 }
 
 

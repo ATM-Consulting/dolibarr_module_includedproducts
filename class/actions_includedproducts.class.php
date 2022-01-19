@@ -115,6 +115,59 @@ class ActionsIncludedproducts
 	}
 
 
+	public function formObjectOptions($parameters, &$object, &$action, $hookmanager) {
+
+		global $langs,$conf,$form;
+		$TContext = explode(':', $parameters['context']);
+
+		if (in_array('propalcard', $TContext) || in_array('ordercard', $TContext) || in_array('invoicecard', $TContext))
+		{
+
+			if($action == 'addline') $object->fetch($object->id); // Reload to get new records
+			// Ensure third party is loaded
+			if ($object->socid && empty($object->thirdparty)) $object->fetch_thirdparty();
+
+			if (count($object->lines) > 0)
+			{
+				?>
+				<script type="text/javascript">
+					$(document).ready(function() {
+
+						var lineColDescriptionPos = <?php echo (! empty($conf->global->MAIN_VIEW_LINE_NUMBER) ? 2 : 1); ?>;
+						var td;
+						<?php
+
+						$picto = img_picto($langs->trans('Nomenclature'),'object_list');
+
+						foreach($object->lines as &$line)
+						{
+							if ($line->product_type == 9) continue; //Filtre sur les lignes de subtotal
+
+							if($line->fk_product>0 || !empty($conf->global->NOMENCLATURE_ALLOW_FREELINE))
+							{
+								$lineid = empty($line->id) ? $line->rowid : $line->id;
+								?>
+								td = $('#row-<?php echo $lineid; ?> td.linecoldescription');
+
+								if(td.length === 0) td = $('#row-<?php echo $lineid; ?> td:nth-child('+lineColDescriptionPos+')');
+
+								td.append('<button type="button" id="included-products-dialog-button" class="classfortooltip" data-target-element="<?php echo $line->element; ?>" data-target-id="<?php echo $line->id; ?>" title="<?php echo $langs->trans("OpenSearchProductBox"); ?>" ><i>C</i></button>');
+
+								<?php
+							}
+						}
+						?>
+					});
+				</script>
+				<?php
+
+			}
+
+		}
+
+	}
+
+
 	/**
 	 * Overloading the doMassActions function : replacing the parent's function with the one below
 	 *

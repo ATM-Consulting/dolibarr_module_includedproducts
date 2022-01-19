@@ -88,7 +88,7 @@ class modIncludedproducts extends DolibarrModules
 		// Define some features supported by module (triggers, login, substitutions, menus, css, etc...)
 		$this->module_parts = array(
 			// Set this to 1 if module has its own trigger directory (core/triggers)
-			'triggers' => 0,
+			'triggers' => 1,
 			// Set this to 1 if module has its own login method file (core/login)
 			'login' => 0,
 			// Set this to 1 if module has its own substitution function file (core/substitutions)
@@ -107,19 +107,17 @@ class modIncludedproducts extends DolibarrModules
 			'theme' => 0,
 			// Set this to relative path of css file if module has its own css file
 			'css' => array(
-				//    '/includedproducts/css/includedproducts.css.php',
+				//'/includedproducts/css/advancedproductsearch.css.php',
 			),
 			// Set this to relative path of js file if module must load a js on all pages
 			'js' => array(
-				//   '/includedproducts/js/includedproducts.js.php',
+				'/includedproducts/js/includedproducts.js.php',
 			),
 			// Set here all hooks context managed by module. To find available hook context, make a "grep -r '>initHooks(' *" on source code. You can also set hook context to 'all'
 			'hooks' => array(
-				//   'data' => array(
-				//       'hookcontext1',
-				//       'hookcontext2',
-				//   ),
-				//   'entity' => '0',
+				'propalcard',
+				'ordercard',
+				'invoicecard',
 			),
 			// Set this to 1 if features of module are opened to external users
 			'moduleforexternal' => 0,

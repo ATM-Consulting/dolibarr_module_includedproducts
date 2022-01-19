@@ -315,7 +315,7 @@ class IncludedProducts extends CommonObject
 		if ($type == 1) $picto = 'service';
 
 		ob_start(); // parceque dolibarr aime tellement le print ...
-		print_barre_liste($langs->trans('IncludedProducts'), $page, $pageUrl, $param, $sortfield, $sortorder, $morehtmlcenter, $curentCountResult, $globalCountResult, $picto, 0, '', '', $limit, 0, 0, 0);
+		print_barre_liste($langs->trans('ModuleIncludedproductsName'), $page, $pageUrl, $param, $sortfield, $sortorder, $morehtmlcenter, $curentCountResult, $globalCountResult, $picto, 0, '', '', $limit, 0, 0, 0);
 		$output.= ob_get_contents();
 		ob_end_clean();
 

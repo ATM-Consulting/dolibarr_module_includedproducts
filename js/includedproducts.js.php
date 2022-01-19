@@ -99,7 +99,7 @@ $( document ).ready(function() {
 	});
 
 	// Pagination
-	$(document).on("click", "#product-search-dialog-form .pagination a, #product-search-dialog-form .included-products-sort-link" , function(event) {
+	$(document).on("click", "#included-products-dialog-form .pagination a, #included-products-dialog-form .included-products-sort-link" , function(event) {
 		event.preventDefault();
 		let urlParams = $(this).attr('href').split('?')[1];
 		IncludedProducts.discountLoadSearchProductDialogForm("&"+urlParams);
@@ -156,7 +156,7 @@ $( document ).ready(function() {
 	//_______________
 	// LA DIALOG BOX
 
-	$(document).on("click", '#product-search-dialog-button', function(event) {
+	$(document).on("click", '#included-products-dialog-button', function(event) {
 		event.preventDefault();
 
 		var element = $(this).attr('data-target-element');
@@ -272,7 +272,7 @@ var IncludedProducts = {};
 
 		$('#'+productSearchDialogBox).prepend($('<div class="inner-dialog-overlay"><div class="dialog-loading__loading"><div class="dialog-loading__spinner-wrapper"><span class="dialog-loading__spinner-text">LOADING</span><span class="dialog-loading__spinner"></span></div></div></div>'));
 
-		$('#'+productSearchDialogBox).load( o.config.interface_url + '?action=product-search-form' + morefilters, function() {
+		$('#'+productSearchDialogBox).load( o.config.interface_url + '?action=included-products-form' + morefilters, function() {
 			o.dialogCountAddedProduct = 0; // init count of product added for reload action
 			o.focusAtEndSearchInput($("#search-all-form-input"));
 
