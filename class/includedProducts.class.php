@@ -187,6 +187,9 @@ class IncludedProducts extends CommonObject
 		//if ($seach_categ) $param.=($search_categ?"&search_categ=".urlencode($search_categ):"");
 		if ($type != '') $param .= '&type='.urlencode($type);
 		if ($search_type != '') $param .= '&search_type='.urlencode($search_type);
+		if ($element) $param .= '&element='.urlencode($element);
+		if ($fk_element) $param .= '&fk_element='.urlencode($fk_element);
+		if ($fk_origin_line) $param .= '&fk_origin_line='.urlencode($fk_origin_line);
 
 		// REQUETTE SQL
 
