@@ -185,7 +185,6 @@ if ($action === 'add-product') {
 							 */
 
 							// Ajout nouvelle ligne
-
 							$resAdd = $object->addline(
 								$desc,
 								$pu_ht,
@@ -215,7 +214,64 @@ if ($action === 'add-product') {
 								$pu_ht_devise
                             );
 
+							$new_line = $object->line;
+
 							// Mise à jour du prix de la ligne d'origine
+							$origin_line = new OrderLine($db);
+							$origin_line->fetch($fk_origin_line);
+							$object->updateline($fk_origin_line
+								, $origin_line->desc
+								, $origin_line->subprice + $new_line->total_ht
+								, $origin_line->qty
+								, $origin_line->remise_percent
+								, $origin_line->tva_tx
+								, $origin_line->txlocaltax1
+								, $origin_line->txlocaltax2
+								, 'HT'
+								, $origin_line->info_bits
+								, $origin_line->date_start
+								, $origin_line->date_end
+								, $origin_line->product_type
+								, $origin_line->fk_parent_line
+								, 0
+								, $origin_line->fk_fournprice
+								, $origin_line->pa_ht
+								, $origin_line->label
+								, $origin_line->special_code
+								, $origin_line->array_options
+								, $origin_line->fk_unit
+								, $origin_line->multicurrency_subprice
+							);
+
+							// Mise à jour de la ligne qui vient d'être ajoutée pour passer ses prix à 0
+							$object->updateline($new_line->id
+								, $new_line->desc
+								, 0 // PU HT
+								, $new_line->qty
+								, 0 // Remise
+								, 0 // TVA
+								, $new_line->txlocaltax1
+								, $new_line->txlocaltax2
+								, 'HT'
+								, $new_line->info_bits
+								, $new_line->date_start
+								, $new_line->date_end
+								, $new_line->product_type
+								, $new_line->fk_parent_line
+								, 0
+								, $new_line->fk_fournprice
+								, 0 // pa_ht
+								, $new_line->label
+								, $new_line->special_code
+								, $new_line->array_options
+								, $new_line->fk_unit
+								, 0 // multicurrency_subprice
+							);
+
+							//updateline($rowid, $desc, $pu, $qty, $remise_percent, $txtva, $txlocaltax1 = 0.0, $txlocaltax2 = 0.0,
+							//$price_base_type = 'HT', $info_bits = 0, $date_start = '', $date_end = '', $type = 0, $fk_parent_line = 0,
+							// $skip_update_total = 0, $fk_fournprice = null, $pa_ht = 0, $label = '', $special_code = 0, $array_options = 0,
+							// $fk_unit = null, $pu_ht_devise = 0, $notrigger = 0, $ref_ext = '')
 
 						}
 						elseif($element=='propal') {
@@ -224,18 +280,17 @@ if ($action === 'add-product') {
 							 */
 
 							// Ajout nouvelle ligne
-
 							$resAdd = $object->addline(
 								$desc,
-								$pu_ht,
+								$pu_ht, // Pu HT
 								$qty,
-								$txtva,
+								$txtva, // TVA
 								$txlocaltax1,
 								$txlocaltax2,
 								$fk_product,
 								$remise_percent,
 								$price_base_type,
-								$pu_ttc,
+								$pu_ttc, // PU TTC
 								$info_bits,
 								$type,
 								$rang,
@@ -254,12 +309,59 @@ if ($action === 'add-product') {
 								$fk_remise_except
 							);
 
-							// Mise à jour du prix de la ligne d'origine
+							$new_line = $object->line;
 
+							// Mise à jour du prix de la ligne d'origine
 							$origin_line = new PropaleLigne($db);
 							$origin_line->fetch($fk_origin_line);
-							$object->updateline($fk_origin_line, $origin_line->subprice + $object->line->total_ht, $origin_line->tva_tx, $origin_line->txlocaltax1, $origin_line->txlocaltax2, $origin_line->desc, 'HT', $origin_line->info_bits, $origin_line->special_code, $origin_line->fk_parent_line, 0, $origin_line->fk_fournprice, $origin_line->pa_ht, $origin_line->label, $origin_line->product_type, $origin_line->date_start, $origin_line->date_end, $origin_line->array_options, $origin_line->fk_unit, $origin_line->multicurrency_subprice);
-//							updateline($rowid, $pu, $qty, $remise_percent, $txtva, $txlocaltax1 = 0.0, $txlocaltax2 = 0.0, $desc = '', $price_base_type = 'HT', $info_bits = 0, $special_code = 0, $fk_parent_line = 0, $skip_update_total = 0, $fk_fournprice = 0, $pa_ht = 0, $label = '', $type = 0, $date_start = '', $date_end = '', $array_options = 0, $fk_unit = null, $pu_ht_devise = 0, $notrigger = 0)
+							$object->updateline($fk_origin_line
+								, $origin_line->subprice + $new_line->total_ht
+								, $origin_line->qty
+								, $origin_line->remise_percent
+								, $origin_line->tva_tx
+								, $origin_line->txlocaltax1
+								, $origin_line->txlocaltax2
+								, $origin_line->desc
+								, 'HT'
+								, $origin_line->info_bits
+								, $origin_line->special_code
+								, $origin_line->fk_parent_line
+								, 0
+								, $origin_line->fk_fournprice
+								, $origin_line->pa_ht
+								, $origin_line->label
+								, $origin_line->product_type
+								, $origin_line->date_start
+								, $origin_line->date_end
+								, $origin_line->array_options
+								, $origin_line->fk_unit
+								, $origin_line->multicurrency_subprice
+							);
+
+							// Mise à jour de la ligne qui vient d'être ajoutée pour passer ses prix à 0
+							$object->updateline($new_line->id
+								, 0 // PU HT
+								, $new_line->qty
+								, 0 // Remise
+								, 0 // TVA
+								, $new_line->txlocaltax1
+								, $new_line->txlocaltax2
+								, $new_line->desc
+								, 'HT'
+								, $new_line->info_bits
+								, $new_line->special_code
+								, $new_line->fk_parent_line
+								, 0
+								, $new_line->fk_fournprice
+								, 0 // pa_ht
+								, $new_line->label
+								, $new_line->product_type
+								, $new_line->date_start
+								, $new_line->date_end
+								, $new_line->array_options
+								, $new_line->fk_unit
+								, 0 // multicurrency_subprice
+							);
 
 						}
 						elseif($element=='facture') {
@@ -268,7 +370,6 @@ if ($action === 'add-product') {
 							 */
 
 							// Ajout nouvelle ligne
-
 							$ventil = 0;
 							$situation_percent = 100;
 							$fk_prev_id = '';
@@ -304,118 +405,64 @@ if ($action === 'add-product') {
 								$pu_ht_devise
 							);
 
+							$new_line = $object->line;
+
 							// Mise à jour du prix de la ligne d'origine
+							$origin_line = new FactureLigne($db);
+							$origin_line->fetch($fk_origin_line);
+							$object->updateline($fk_origin_line
+								, $origin_line->desc
+								, $origin_line->subprice + $new_line->total_ht
+								, $origin_line->qty
+								, $origin_line->remise_percent
+								, $origin_line->date_start
+								, $origin_line->date_end
+								, $origin_line->tva_tx
+								, $origin_line->txlocaltax1
+								, $origin_line->txlocaltax2
+								, 'HT'
+								, $origin_line->info_bits
+								, $origin_line->product_type
+								, $origin_line->fk_parent_line
+								, 0
+								, $origin_line->fk_fournprice
+								, $origin_line->pa_ht
+								, $origin_line->label
+								, $origin_line->special_code
+								, $origin_line->array_options
+								, $origin_line->situation_percent
+								, $origin_line->fk_unit
+								, $origin_line->multicurrency_subprice
+							);
 
-						}
-						elseif($element=='invoice_supplier') {
-							/**
-							 * @var FactureFournisseur $object
-							 */
-							$ventil = 0;
-							$situation_percent = 100;
-							$fk_prev_id = '';
-							$resAdd = $object->addline(
-								$desc,
-								$pu_ht,
-								$txtva,
-								$txlocaltax1,
-								$txlocaltax2,
-								$qty,
-								$fk_product,
-								$remise_percent,
-								$date_start,
-								$date_end,
-								$ventil,
-								$info_bits,
-								$price_base_type,
-								$type,
-								$rang,
-								$no_trigger,
-								$array_options,
-								$fk_unit,
-								$origin_id,
-								$pu_ht_devise,
-								$ref_supplier,
-								$special_code,
-								$fk_parent_line,
-								$fk_remise_except
-
+							// Mise à jour de la ligne qui vient d'être ajoutée pour passer ses prix à 0
+							$object->updateline($new_line->id
+								, $new_line->desc
+								, 0 // pu ht
+								, $new_line->qty
+								, 0 // remise
+								, $new_line->date_start
+								, $new_line->date_end
+								, 0 // TVA
+								, $new_line->txlocaltax1
+								, $new_line->txlocaltax2
+								, 'HT'
+								, $new_line->info_bits
+								, $new_line->product_type
+								, $new_line->fk_parent_line
+								, 0
+								, $new_line->fk_fournprice
+								, 0 // pa_ht
+								, $new_line->label
+								, $new_line->special_code
+								, $new_line->array_options
+								, $new_line->situation_percent
+								, $new_line->fk_unit
+								, 0 // pu devise
 							);
 
 						}
-						elseif($element == 'order_supplier') {
-							/**
-							 * @var CommandeFournisseur $object
-							 */
-							$ventil = 0;
-							$situation_percent = 100;
-							$fk_prev_id = '';
-							$resAdd = $object->addline(
-								$desc,
-								$pu_ht,
-								$qty,
-								$txtva,
-								$txlocaltax1,
-								$txlocaltax2,
-								$fk_product,
-								$fournPrice,
-								$ref_supplier,
-								$remise_percent,
-								$price_base_type,
-								$pu_ttc,
-								$type,
-								$info_bits,
-								$no_trigger,
-								$date_start,
-								$date_end,
-								$array_options,
-								$fk_unit,
-								$pu_ht_devise,
-								$origin,
-								$origin_id
-
-							);
-
-						}
-						elseif($element == 'supplier_proposal') {
-							/**
-							 * @var SupplierProposal $object
-							 */
-							$ventil = 0;
-							$situation_percent = 100;
-							$fk_prev_id = '';
-							$resAdd = $object->addline(
-								$desc,
-								$pu_ht,
-								$qty,
-								$txtva,
-								$txlocaltax1,
-								$txlocaltax2,
-								$fk_product,
-								$remise_percent,
-								$price_base_type,
-								$pu_ttc,
-								$info_bits,
-								$type,
-								$rang,
-								$special_code,
-								$fk_parent_line,
-								$fournPrice,
-								$pa_ht,
-								$label,
-								$array_options,
-								$ref_supplier,
-								$fk_unit,
-								$origin,
-								$origin_id,
-								$pu_ht_devise,
-								$date_start,
-								$date_end
-
-							);
-
-						}
-						else {
+							else {
 							$jsonResponse->msg = $langs->trans('DocumentNotAvailable').': '.$element;
 						}
 
