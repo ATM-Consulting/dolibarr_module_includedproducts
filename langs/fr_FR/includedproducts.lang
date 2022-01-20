@@ -87,3 +87,4 @@ PredefinedFournPricesForFillHelp=Sélectionnez un tarif dans la liste pour rempl
 ProductCategories = Tags/catégories produits
 SearchWillBeOnTheseFields = La recherche globale s'effectue sur les champs suivants : %s
 ProductRefFourn = Référence fournisseur
+Included=Inclus
