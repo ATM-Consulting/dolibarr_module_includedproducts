@@ -166,6 +166,9 @@ class ActionsIncludedproducts
 	public function formObjectOptions($parameters, &$object, &$action, $hookmanager) {
 
 		global $langs,$conf,$form;
+
+		$langs->load('includedproducts@includedproducts');
+
 		$TContext = explode(':', $parameters['context']);
 
 		if (in_array('propalcard', $TContext) || in_array('ordercard', $TContext) || in_array('invoicecard', $TContext))
@@ -175,36 +178,60 @@ class ActionsIncludedproducts
 			// Ensure third party is loaded
 			if ($object->socid && empty($object->thirdparty)) $object->fetch_thirdparty();
 
-			if (count($object->lines) > 0 && empty($object->status))
+			if (count($object->lines) > 0)
 			{
-				?>
-				<script type="text/javascript">
-					$(document).ready(function() {
+				if(empty($object->status)) {
 
-						var lineColDescriptionPos = <?php echo (! empty($conf->global->MAIN_VIEW_LINE_NUMBER) ? 2 : 1); ?>;
-						var td;
-						<?php
+					// Affichage du "C" pour afficher la pop in d'ajout de composantes
+					?>
+					<script type="text/javascript">
+						$(document).ready(function () {
 
-						foreach($object->lines as &$line)
-						{
-							if ($line->product_type == 9) continue; //Filtre sur les lignes de subtotal
+							var lineColDescriptionPos = <?php echo(!empty($conf->global->MAIN_VIEW_LINE_NUMBER) ? 2 : 1); ?>;
+							var td;
+							<?php
 
-							if(empty($line->array_options['options_includedproducts_isincludedproduct']))
+							foreach($object->lines as &$line)
 							{
-								$lineid = empty($line->id) ? $line->rowid : $line->id;
-								?>
-								td = $('#row-<?php echo $lineid; ?> td.linecoldescription');
+								if ($line->product_type == 9) continue; //Filtre sur les lignes de subtotal
 
-								if(td.length === 0) td = $('#row-<?php echo $lineid; ?> td:nth-child('+lineColDescriptionPos+')');
+								if(empty($line->array_options['options_includedproducts_isincludedproduct']))
+								{
+									$lineid = empty($line->id) ? $line->rowid : $line->id;
+									?>
+									td = $('#row-<?php echo $lineid; ?> td.linecoldescription');
 
-								td.append('<button type="button" id="included-products-dialog-button" class="classfortooltip" data-target-element="<?php echo $object->element; ?>" data-target-id="<?php echo $object->id; ?>" data-target-idline="<?php echo $line->id; ?>" title="<?php echo $langs->trans("OpenSearchProductBox"); ?>" ><i>C</i></button>');
+									if (td.length === 0) td = $('#row-<?php echo $lineid; ?> td:nth-child(' + lineColDescriptionPos + ')');
+
+									td.append('<button type="button" id="included-products-dialog-button" class="classfortooltip" data-target-element="<?php echo $object->element; ?>" data-target-id="<?php echo $object->id; ?>" data-target-idline="<?php echo $line->id; ?>" title="<?php echo $langs->trans("OpenSearchProductBox"); ?>" ><i>C</i></button>');
 
 								<?php
+								}
+							}
+							?>
+
+						});
+					</script>
+					<?php
+				}
+
+				// Affichage du mot "Inclus" dans la colonne total ht si ligne de composante
+				?>
+
+				<script type="text/javascript">
+					$(document).ready(function () {
+						<?php
+						foreach($object->lines as &$line) {
+							if ($line->product_type == 9) continue; //Filtre sur les lignes de subtotal
+							if (!empty($line->array_options['options_includedproducts_isincludedproduct'])) {
+								print '$("#row-'.$line->id.'").find("td.linecolht").find("span").html("'.$langs->trans('Included').'");';
 							}
 						}
 						?>
+
 					});
 				</script>
+
 				<?php
 
 			}
