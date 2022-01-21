@@ -244,7 +244,7 @@ if ($action === 'add-product') {
 							);
 
 							// Mise à jour de la ligne qui vient d'être ajoutée pour passer ses prix à 0
-							$new_line->total_ht = $new_line->total_tva = $new_line->tva_tx = $new_line->total_ttc = $new_line->total_localtax1 = $new_line->total_localtax2 =
+							$new_line->total_ht = $new_line->total_tva = $new_line->total_ttc = $new_line->total_localtax1 = $new_line->total_localtax2 =
 							$new_line->multicurrency_total_ht = $new_line->multicurrency_total_tva = $new_line->multicurrency_total_ttc = 0;
 							$new_line->update($user);
 							$object->update_price(1);
@@ -304,7 +304,7 @@ if ($action === 'add-product') {
 								, $origin_line->fk_parent_line
 								, 0
 								, $origin_line->fk_fournprice
-								, $origin_line->pa_ht
+								, $origin_line->pa_ht + $pa_ht
 								, $origin_line->label
 								, $origin_line->product_type
 								, $origin_line->date_start
@@ -315,8 +315,9 @@ if ($action === 'add-product') {
 							);
 
 							// Mise à jour de la ligne qui vient d'être ajoutée pour passer ses prix à 0 sauf le prix unitaire
-							$new_line->total_ht = $new_line->total_tva = $new_line->tva_tx = $new_line->total_ttc = $new_line->total_localtax1 = $new_line->total_localtax2 =
+							$new_line->total_ht = $new_line->total_tva = $new_line->total_ttc = $new_line->total_localtax1 = $new_line->total_localtax2 =
 							$new_line->multicurrency_total_ht = $new_line->multicurrency_total_tva = $new_line->multicurrency_total_ttc = 0;
+							$new_line->pa_ht = '0';
 							$new_line->update();
 							$object->update_price(1);
 
@@ -393,7 +394,7 @@ if ($action === 'add-product') {
 							);
 
 							// Mise à jour de la ligne qui vient d'être ajoutée pour passer ses prix à 0
-							$new_line->total_ht = $new_line->total_tva = $new_line->tva_tx = $new_line->total_ttc = $new_line->total_localtax1 = $new_line->total_localtax2 =
+							$new_line->total_ht = $new_line->total_tva = $new_line->total_ttc = $new_line->total_localtax1 = $new_line->total_localtax2 =
 							$new_line->multicurrency_total_ht = $new_line->multicurrency_total_tva = $new_line->multicurrency_total_ttc = 0;
 							$new_line->update($user);
 							$object->update_price(1);
