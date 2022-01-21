@@ -60,8 +60,8 @@ IncludedProduts_ef_isincludedproduct=Est un composant
 #
 # Search
 #
-resultsDisplayForNbResultsFounds = %s enregistrements affichés sur %s enregistrements trouvés
-OneResultDisplayForOneResultFounds = %s enregistrement affiché sur %s enregistrement trouvé
+resultsDisplayForNbResultsFounds = %s enregistrements affichés sur %s enregistrements trouvés<br><span style="color:red">Pour chaque ajout de produit / service, la quantité sera multipliée par la quantité du composé</span>
+OneResultDisplayForOneResultFounds = %s enregistrement affiché sur %s enregistrement trouvé<br><span style="color:red">Pour chaque ajout de produit / service, la quantité sera multipliée par la quantité du composé</span>
 SearchProduct = Recherche de produits/services
 ClickToAddProductInDocument = Ajouter ce produit/service au document
 OpenSearchProductBox = Ajouter des composantes
