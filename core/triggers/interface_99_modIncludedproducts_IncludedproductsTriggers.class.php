@@ -107,9 +107,10 @@ class InterfaceIncludedproductsTriggers extends DolibarrTriggers
 		if (!empty($object->array_options['options_includedproducts_isincludedproduct']) && in_array($action, array('LINEPROPAL_INSERT', 'LINEPROPAL_UPDATE', 'LINEORDER_INSERT', 'LINEORDER_UPDATE', 'LINEBILL_INSERT', 'LINEBILL_UPDATE', 'LINEBILL_SUPPLIER_CREATE', 'LINEBILL_SUPPLIER_UPDATE'))) {
 			$doli_action = GETPOST('action', 'none');
 
-			if ( (in_array($doli_action, array('updateligne', 'updateline', 'addline', 'add', 'create'))) && in_array($object->element, array('propaldet', 'commandedet', 'facturedet'))) {
+			if ( (in_array($doli_action, array('updateligne', 'updateline', 'addline', 'add', 'create', 'confirm_clone'))) && in_array($object->element, array('propaldet', 'commandedet', 'facturedet'))) {
 				$object->total_ht = $object->total_tva = $object->total_ttc = $object->total_localtax1 = $object->total_localtax2 =
 				$object->multicurrency_total_ht = $object->multicurrency_total_tva = $object->multicurrency_total_ttc = 0;
+				$object->pa_ht = '0';
 
 				if ($object->element == 'propaldet') $res = $object->update(1);
 				else $res = $object->update($user, 1);
