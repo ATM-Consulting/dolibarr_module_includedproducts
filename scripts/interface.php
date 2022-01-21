@@ -244,29 +244,10 @@ if ($action === 'add-product') {
 							);
 
 							// Mise à jour de la ligne qui vient d'être ajoutée pour passer ses prix à 0
-							$object->updateline($new_line->id
-								, $new_line->desc
-								, 0 // PU HT
-								, $new_line->qty
-								, 0 // Remise
-								, 0 // TVA
-								, $new_line->txlocaltax1
-								, $new_line->txlocaltax2
-								, 'HT'
-								, $new_line->info_bits
-								, $new_line->date_start
-								, $new_line->date_end
-								, $new_line->product_type
-								, $new_line->fk_parent_line
-								, 0
-								, $new_line->fk_fournprice
-								, 0 // pa_ht
-								, $new_line->label
-								, $new_line->special_code
-								, $new_line->array_options
-								, $new_line->fk_unit
-								, 0 // multicurrency_subprice
-							);
+							$new_line->total_ht = $new_line->total_tva = $new_line->tva_tx = $new_line->total_ttc = $new_line->total_localtax1 = $new_line->total_localtax2 =
+							$new_line->multicurrency_total_ht = $new_line->multicurrency_total_tva = $new_line->multicurrency_total_ttc = 0;
+							$new_line->update($user);
+							$object->update_price(1);
 
 						}
 						elseif($element=='propal') {
@@ -333,30 +314,11 @@ if ($action === 'add-product') {
 								, $origin_line->multicurrency_subprice
 							);
 
-							// Mise à jour de la ligne qui vient d'être ajoutée pour passer ses prix à 0
-							$object->updateline($new_line->id
-								, 0 // PU HT
-								, $new_line->qty
-								, 0 // Remise
-								, 0 // TVA
-								, $new_line->txlocaltax1
-								, $new_line->txlocaltax2
-								, $new_line->desc
-								, 'HT'
-								, $new_line->info_bits
-								, $new_line->special_code
-								, $new_line->fk_parent_line
-								, 0
-								, $new_line->fk_fournprice
-								, 0 // pa_ht
-								, $new_line->label
-								, $new_line->product_type
-								, $new_line->date_start
-								, $new_line->date_end
-								, $new_line->array_options
-								, $new_line->fk_unit
-								, 0 // multicurrency_subprice
-							);
+							// Mise à jour de la ligne qui vient d'être ajoutée pour passer ses prix à 0 sauf le prix unitaire
+							$new_line->total_ht = $new_line->total_tva = $new_line->tva_tx = $new_line->total_ttc = $new_line->total_localtax1 = $new_line->total_localtax2 =
+							$new_line->multicurrency_total_ht = $new_line->multicurrency_total_tva = $new_line->multicurrency_total_ttc = 0;
+							$new_line->update();
+							$object->update_price(1);
 
 						}
 						elseif($element=='facture') {
@@ -431,30 +393,10 @@ if ($action === 'add-product') {
 							);
 
 							// Mise à jour de la ligne qui vient d'être ajoutée pour passer ses prix à 0
-							$object->updateline($new_line->id
-								, $new_line->desc
-								, 0 // pu ht
-								, $new_line->qty
-								, 0 // remise
-								, $new_line->date_start
-								, $new_line->date_end
-								, 0 // TVA
-								, $new_line->txlocaltax1
-								, $new_line->txlocaltax2
-								, 'HT'
-								, $new_line->info_bits
-								, $new_line->product_type
-								, $new_line->fk_parent_line
-								, 0
-								, $new_line->fk_fournprice
-								, 0 // pa_ht
-								, $new_line->label
-								, $new_line->special_code
-								, $new_line->array_options
-								, $new_line->situation_percent
-								, $new_line->fk_unit
-								, 0 // pu devise
-							);
+							$new_line->total_ht = $new_line->total_tva = $new_line->tva_tx = $new_line->total_ttc = $new_line->total_localtax1 = $new_line->total_localtax2 =
+							$new_line->multicurrency_total_ht = $new_line->multicurrency_total_tva = $new_line->multicurrency_total_ttc = 0;
+							$new_line->update($user);
+							$object->update_price(1);
 
 						}
 							else {
