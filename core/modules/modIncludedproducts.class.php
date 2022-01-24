@@ -128,7 +128,7 @@ class modIncludedproducts extends DolibarrModules
 		$this->dirs = array("/includedproducts/temp");
 
 		// Config pages. Put here list of php page, stored into includedproducts/admin directory, to use to setup module.
-		$this->config_page_url = array("setup.php@includedproducts");
+		//$this->config_page_url = array("setup.php@includedproducts");
 
 		// Dependencies
 		// A condition to hide module

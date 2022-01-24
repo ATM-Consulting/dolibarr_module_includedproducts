@@ -20,7 +20,7 @@
 # Module label 'ModuleIncludedproductsName'
 ModuleIncludedproductsName = Composantes de produits / services
 # Module description 'ModuleIncludedproductsDesc'
-ModuleIncludedproductsDesc = Includedproducts description
+ModuleIncludedproductsDesc = Permet d'ajouter des produits / services en tant que "composantes" d'un autre.<br>Lorsqu'un produit / service est ajouté en tant que composante, son prix est additionné à celui du "composé" avant d'être passé à 0.<br>Sur le PDF seuls les prix des "composés" sont affichés, il est écrit "Inclus" sur Dolibarr et sur les PDF générés dans la colonne "Total HT" pour les lignes des composantes
 
 #
 # Admin page

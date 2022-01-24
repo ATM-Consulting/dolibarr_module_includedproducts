@@ -136,16 +136,16 @@ class ActionsIncludedproducts
 		}
 	}
 
-//	public function pdf_getlineqty($parameters, &$object, &$action, $hookmanager) {
-//		$TContext = explode(':', $parameters['context']);
-//
-//		$is_included_product = $object->lines[$parameters['i']]->array_options['options_includedproducts_isincludedproduct'];
-//		if ((in_array('propalcard', $TContext) || in_array('ordercard', $TContext) || in_array('invoicecard', $TContext))
-//			&& !empty($is_included_product)) {
-//			// On vide le champ
-//			return 1;
-//		}
-//	}
+	public function pdf_getlineremisepercent($parameters, &$object, &$action, $hookmanager) {
+		$TContext = explode(':', $parameters['context']);
+
+		$is_included_product = $object->lines[$parameters['i']]->array_options['options_includedproducts_isincludedproduct'];
+		if ((in_array('propalcard', $TContext) || in_array('ordercard', $TContext) || in_array('invoicecard', $TContext))
+			&& !empty($is_included_product)) {
+			// On vide le champ
+			return 1;
+		}
+	}
 
 	public function pdf_getlinetotalexcltax($parameters, &$object, &$action, $hookmanager) {
 
