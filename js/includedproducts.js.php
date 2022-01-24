@@ -113,14 +113,14 @@ $( document ).ready(function() {
 	var typingProductSearchTimer;                //timer identifier
 	var doneTypingProductSearchInterval = 2000;  //time in ms (2 seconds)
 
-	$(document).on("keyup", "#search-all-form-input" , function(event) {
+	/*$(document).on("keyup", "#search-all-form-input" , function(event) {
 		clearTimeout(typingProductSearchTimer);
 		if ($('#search-all-form-input').val()) {
 			typingProductSearchTimer = setTimeout(function(){
 				IncludedProducts.discountLoadSearchProductDialogForm("&"+$( "#included-products-dialog-form" ).serialize());
 			}, doneTypingProductSearchInterval);
 		}
-	});
+	});*/
 
 
 
@@ -162,6 +162,8 @@ $( document ).ready(function() {
 		var element = $(this).attr('data-target-element');
 		var fk_element = $(this).attr('data-target-id');
 		var fk_origin_line = $(this).attr('data-target-idline');
+		var model_pdf = $(this).attr('data-target-model-pdf');
+		var lang_id = $(this).attr('data-target-lang-id');
 
 		var productSearchDialogBox = "included-products-dialog-box";
 		// crée le calque qui sera convertie en popup
@@ -186,7 +188,7 @@ $( document ).ready(function() {
 			close: function( event, ui ) {
 				if(IncludedProducts.dialogCountAddedProduct>0){
 					// si une ligne a été ajoutée, recharge la page actuelle
-					document.location.href = "<?php print $_SERVER['HTTP_REFERER']; ?>";
+					document.location.href = "<?php print $_SERVER['HTTP_REFERER']; ?>" + '&action=builddoc&lang_id=' + lang_id + '&model=' + model_pdf;
 				}
 			},
 			open: function( event, ui ) {

@@ -173,7 +173,6 @@ class ActionsIncludedproducts
 
 		if (in_array('propalcard', $TContext) || in_array('ordercard', $TContext) || in_array('invoicecard', $TContext))
 		{
-
 			if($action == 'addline') $object->fetch($object->id); // Reload to get new records
 			// Ensure third party is loaded
 			if ($object->socid && empty($object->thirdparty)) $object->fetch_thirdparty();
@@ -203,7 +202,7 @@ class ActionsIncludedproducts
 
 									if (td.length === 0) td = $('#row-<?php echo $lineid; ?> td:nth-child(' + lineColDescriptionPos + ')');
 
-									td.append('<button type="button" id="included-products-dialog-button" class="classfortooltip" data-target-element="<?php echo $object->element; ?>" data-target-id="<?php echo $object->id; ?>" data-target-idline="<?php echo $line->id; ?>" title="<?php echo $langs->trans("OpenSearchProductBox"); ?>" ><i>C</i></button>');
+									td.append('<button type="button" id="included-products-dialog-button" class="classfortooltip" data-target-model-pdf="<?php echo $object->model_pdf; ?>" data-target-lang-id="<?php echo $object->thirdparty->default_lang ? $object->thirdparty->default_lang : $langs->getDefaultLang(); ?>" data-target-element="<?php echo $object->element; ?>" data-target-id="<?php echo $object->id; ?>" data-target-idline="<?php echo $line->id; ?>" title="<?php echo $langs->trans("OpenSearchProductBox"); ?>" ><i>C</i></button>');
 
 								<?php
 								}
