@@ -202,7 +202,7 @@ class ActionsIncludedproducts
 
 									if (td.length === 0) td = $('#row-<?php echo $lineid; ?> td:nth-child(' + lineColDescriptionPos + ')');
 
-									td.append('&nbsp;<button type="button" id="included-products-dialog-button" class="classfortooltip" data-target-model-pdf="<?php echo $object->model_pdf; ?>" data-target-lang-id="<?php echo $object->thirdparty->default_lang ? $object->thirdparty->default_lang : $langs->getDefaultLang(); ?>" data-target-element="<?php echo $object->element; ?>" data-target-id="<?php echo $object->id; ?>" data-target-idline="<?php echo $line->id; ?>" title="<?php echo $langs->trans("OpenSearchProductBox"); ?>" ><i>C</i></button>');
+									td.append('&nbsp;<button type="button" id="included-products-dialog-button" class="classfortooltip" data-target-model-pdf="<?php echo $object->model_pdf; ?>" data-target-lang-id="<?php echo $object->thirdparty->default_lang ? $object->thirdparty->default_lang : $langs->getDefaultLang(); ?>" data-target-element="<?php echo $object->element; ?>" data-target-id="<?php echo $object->id; ?>" data-target-idline="<?php echo $line->id; ?>" title="<?php echo $langs->trans("OpenIncludedProductBox"); ?>" ><i>C</i></button>');
 
 								<?php
 								}

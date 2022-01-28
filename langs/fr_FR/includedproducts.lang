@@ -64,7 +64,7 @@ resultsDisplayForNbResultsFounds = %s enregistrements affichés sur %s enregistr
 OneResultDisplayForOneResultFounds = %s enregistrement affiché sur %s enregistrement trouvé<br><span style="color:red">Pour chaque ajout de produit / service, la quantité sera multipliée par la quantité du composé</span>
 SearchProduct = Recherche de produits/services
 ClickToAddProductInDocument = Ajouter ce produit/service au document
-OpenSearchProductBox = Ajouter des composantes
+OpenIncludedProductBox = Ajouter des composantes
 ErrorFetchingObject = Erreur : Document non trouvé
 ErrorFetchingProduct = Erreur : Produit non trouvé
 ErrorOnAddLine = Erreur lors de l'ajout de ligne
