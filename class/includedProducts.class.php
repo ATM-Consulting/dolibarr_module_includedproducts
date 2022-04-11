@@ -542,6 +542,7 @@ class IncludedProducts extends CommonObject
 
 								$selectArray = array();
 								$idSelected = '';
+								$first=true;
 
 								foreach ($TFournPriceList as $TpriceInfos) {
 									$selectArray[$TpriceInfos['id']] = array(
@@ -551,6 +552,35 @@ class IncludedProducts extends CommonObject
 									if ($TpriceInfos['id'] == 'pmpprice' && !empty($TpriceInfos['price'])) {
 										$idSelected = 'pmpprice';
 									}
+
+									// Initialisation du meilleur prix fournisseur pour ce produit
+									if((int)$TpriceInfos['id'] > 0) { // C'est un prix fournisseur
+										if($first) {
+											$min_price_fourn = $TpriceInfos['price'];
+											$first = false;
+										}
+										if($TpriceInfos['price'] < $min_price_fourn) {
+											$min_price_fourn = $TpriceInfos['price'];
+											$id_min_price_fourn = $TpriceInfos['id'];
+										}
+									}
+
+								}
+
+								if(!empty($conf->margin->enabled)) {
+
+									switch ($conf->global->MARGIN_TYPE) {
+										case 'costprice' :
+											$idSelected = 'costprice';
+											break;
+										case 'pmp' :
+											$idSelected = 'pmpprice';
+											break;
+										default :
+											$idSelected = $id_min_price_fourn;
+											break;
+									}
+
 								}
 
 								if($isSupplier) { // Seuls les prix fournisseurs nous intéressent dans le cadre d'un document fournisseur (pas de PMP ou autre dans ce cas)
